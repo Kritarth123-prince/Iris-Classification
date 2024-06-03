@@ -4,7 +4,6 @@ import pickle
 
 app = Flask(__name__)
 
-# Load the model
 with open('Model/Iris.pkl', 'rb') as file:
     model = pickle.load(file)
 
@@ -19,11 +18,9 @@ def predict():
     petal_length = float(request.form['petal_length'])
     petal_width = float(request.form['petal_width'])
 
-    # Create a DataFrame for the input
     input_data = pd.DataFrame([[sepal_length, sepal_width, petal_length, petal_width]], 
                               columns=['sepal_length', 'sepal_width', 'petal_length', 'petal_width'])
 
-    # Make prediction
     prediction = model.predict(input_data)[0]
 
     return render_template('index.html', prediction=prediction)
